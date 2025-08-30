@@ -1,28 +1,29 @@
-# GTM Head Injection - WordPress Plugin
+# GTM Simple Tag Injector - WordPress Plugin
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)
 ![WordPress](https://img.shields.io/badge/wordpress-5.0%2B-blue.svg)
 ![PHP](https://img.shields.io/badge/php-7.4%2B-blue.svg)
 ![License](https://img.shields.io/badge/license-GPL%20v2-blue.svg)
 
-**Lightweight WordPress plugin that injects Google Tag Manager container code in the head with highest priority for optimal performance.**
+**Professional GTM + GA4 integration with correct load order for data accuracy. Prevents tracking conflicts.**
 
 ## 🎯 What This Plugin Does
 
-GTM Head Injection is a focused, lightweight WordPress plugin designed to inject your Google Tag Manager container code with the **highest possible priority** in your website's head section.
+GTM Simple Tag Injector is the **only WordPress plugin** that implements professional-grade GTM + GA4 integration with **controlled load order** for maximum data accuracy.
 
-Unlike other GTM plugins that add unnecessary features and bloat, GTM Head Injection does **one thing exceptionally well**: ensures your GTM container fires before any other scripts on your site.
+Unlike other plugins that randomly inject tracking codes, GTM Simple Tag Injector ensures **GTM fires first (Priority 1)** and **GA4 fires second (Priority 2)** - preventing conflicts and ensuring proper data flow.
 
 ## ✨ Key Features
 
-- **🚀 Highest Priority Injection** - Uses priority 1 on `wp_head` hook
-- **🪶 Clean, Lightweight Code** - No bloat, just essential functionality  
-- **⚙️ Easy Configuration** - Simple admin interface in Settings → GTM Settings
-- **🏆 Professional Implementation** - Follows WordPress coding standards
-- **🛡️ Admin-Safe** - Doesn't load GTM code in WordPress admin area
-- **📱 Proper Noscript Fallback** - Includes noscript iframe for non-JS users
+- **🚀 Professional Load Order** - GTM Priority 1, GA4 Priority 2 (prevents conflicts)
+- **🎯 Dual Integration** - GTM required, GA4 optional for complete tracking coverage
+- **⚙️ Authority-Level Configuration** - Settings designed by GTM specialists
+- **🏆 Conflict Prevention** - Proper sequencing prevents duplicate tracking and data issues
+- **🪶 Clean, Focused Code** - No bloat, professional implementation standards
+- **🛡️ Admin-Safe** - Doesn't load tracking code in WordPress admin area
+- **📱 Complete Implementation** - Includes proper noscript fallbacks for accessibility
 
-## 🎪 Why Choose GTM Head Injection?
+## 🎪 Why Choose GTM Simple Tag Injector?
 
 ### Performance First
 - GTM fires **before any other scripts**
@@ -53,27 +54,34 @@ Unlike other GTM plugins that add unnecessary features and bloat, GTM Head Injec
 ### Configuration
 
 1. Go to **WordPress Admin → Settings → GTM Settings**
-2. Enter your **Google Tag Manager container ID** (format: GTM-XXXXXXX)
-3. **Save settings**
-4. **Verify** GTM is working using Google Tag Assistant
+2. **GTM Container ID**: Enter your Google Tag Manager container ID (format: GTM-XXXXXXX)
+3. **Optional GA4**: Enable checkbox and enter GA4 Measurement ID (format: G-XXXXXXXXXX)
+4. **Save settings** and verify with Google Tag Assistant
 
-### Getting Your GTM Container ID
+### Getting Your IDs
 
+**GTM Container ID:**
 1. Go to [Google Tag Manager](https://tagmanager.google.com)
 2. Select your container
 3. Copy the container ID (format: GTM-XXXXXXX)
-4. Paste it in the plugin settings
+
+**GA4 Measurement ID (Optional):**
+1. Go to [Google Analytics](https://analytics.google.com)
+2. Select property → Admin → Data Streams
+3. Copy the Measurement ID (format: G-XXXXXXXXXX)
 
 ## 🔧 Technical Details
 
 ### Hook Implementation
 - `wp_head` - Priority 1 (GTM JavaScript container)
+- `wp_head` - Priority 2 (GA4 JavaScript code) 
 - `wp_body_open` - Priority 1 (GTM noscript fallback)
 
 ### Performance Impact
 - **Memory**: Minimal (single class instantiation)
-- **Database**: One `get_option()` call per page load
-- **HTTP Requests**: Standard GTM requests only (no overhead)
+- **Database**: Three `get_option()` calls per page load (GTM ID, GA4 enabled, GA4 ID)
+- **HTTP Requests**: Standard GTM + optional GA4 requests (no overhead)
+- **Load Sequence**: GTM establishes dataLayer first, GA4 integrates properly
 - **Caching**: Fully compatible with all caching plugins
 
 ### Security Features
